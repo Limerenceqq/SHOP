@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.shop.dao.IUserDao">
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="User">
+        insert into user(username,password,name,email,phone,address,state,code)
+        values (#{username},#{password},#{name},#{email},#{phone},#{addr},#{state},#{code})
+    </insert>
+
+    <!--注册检查是否重名-->
+    <select id="userNameCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(uid)
+        from user
+        where username = #{username}
+    </select>
+
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.dao.IProductDao">
+    <resultMap type="Product" id="productMap">
+        <id column="pid" property="pid"/>
+        <result column="pname" property="pname"/>
+        <result column="market_price" property="marketPrice"/>
+        <result column="shop_price" property="shopPrice"/>
+        <result column="image" property="image"/>
+        <result column="pdesc" property="pdesc"/>
+        <result column="is_hot" property="isHot"/>
+        <result column="pdate" property="pdate"/>
+    </resultMap>
+
+
+    <!--查找热门商品-->
+    <select id="findAllHotProduct" resultMap="productMap">
+        select pid,pname,market_price,shop_price,image,pdesc,is_hot,pdate
+        from product
+        where is_hot=1
+    </select>
+
+
+    <!--查找最新商品-->
+    <select id="findAllNewProduct" resultMap="productMap">
+        select pid,pname,market_price,shop_price,image,pdesc,is_hot,pdate
+        from product
+        order by pdate desc
+        limit 0,10
+    </select>
+
+
+    <!--查找一级目录下的商品数量-->
+    <select id="findCountByCid" parameterType="int" resultType="Integer">
+        select count(*)
+        from Product p join categorysecond cs join category c
+        on p.csid=cs.csid and cs.cid=c.cid
+        where c.cid =#{cid}
+    </select>
+
+
+    <!--商品数据集合-->
+    <select id="findByPage" parameterType="PageBean" resultMap="productMap">
+        select
+            p.pid,
+            p.pname,
+            p.market_price,
+            p.shop_price,
+            p.image,
+            p.pdesc,
+            p.is_hot,
+            p.pdate,
+            p.csid
+        FROM
+            categorysecond cs JOIN category c JOIN product p
+        ON  p.csid=cs.csid and cs.cid=c.cid
+        where c.cid=#{cid}
+        limit #{begin},#{limit}
+    </select>
+
+
+    <!--查询二级类目下的商品数量-->
+    <select id="findCountByCsid" parameterType="int" resultType="Integer">
+        select count(pid)
+        from product p
+        where p.csid=#{csid}
+    </select>
+
+
+    <!--根据二级分类分页查询商品-->
+    <select id="findByPageCsid" parameterType="PageBean" resultMap="productMap">
+        select
+            p.pid,
+            p.pname,
+            p.market_price,
+            p.shop_price,
+            p.image,
+            p.pdesc,
+            p.is_hot,
+            p.pdate,
+            p.csid
+        from product p join categorySecond cs
+                ON p.csid=cs.csid
+        where cs.csid = #{csid}
+        limit #{begin},#{limit}
+    </select>
+
+
+    <!--根据商品id查找商品详情-->
+    <select id="findProductByPid" parameterType="int" resultMap="productMap">
+        select
+            p.pid,
+            p.pname,
+            p.market_price,
+            p.shop_price,
+            p.image,
+            p.pdesc,
+            p.is_hot,
+            p.pdate,
+            p.csid
+        from
+            product p
+        where
+            p.pid=#{pid}
+    </select>
+</mapper>

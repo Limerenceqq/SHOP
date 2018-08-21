@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.dao.IOrderDao">
+    <resultMap id="orderAndUser" type="Orders">
+        <id column="oid" property="oid"/>
+        <result column="total" property="total"/>
+        <result column="ordertime" property="orderTime"/>
+        <result column="state" property="state"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="addr" property="addr"/>
+        <association property="user" javaType="User">
+            <id column="uid" property="uid"/>
+            <result column="username" property="username"/>
+            <result column="phone" property="phone"/>
+            <result column="addr" property="addr"/>
+        </association>
+        <collection property="orderItems" ofType="com.shop.model.OrderItem">
+            <id column="itemid" property="orderItemId"/>
+            <result column="count" property="count"/>
+            <result column="subtotal" property="subtotal"/>
+            <association property="product" javaType="Product">
+                <id column="pid" property="pid"/>
+                <result column="pname" property="pname"/>
+                <result column="market_price" property="marketPrice"/>
+                <result column="shop_price" property="shopPrice"/>
+                <result column="image" property="image"/>
+                <result column="pdesc" property="pdesc"/>
+                <result column="is_hot" property="isHot"/>
+                <result column="pdate" property="pdate"/>
+            </association>
+        </collection>
+    </resultMap>
+    <resultMap id="orderItme" type="OrderItem">
+        <id column="itemid" property="orderItemId"/>
+        <result column="count" property="count"/>
+        <result column="subtotal" property="subtotal"/>
+        <association property="product" javaType="Product">
+            <id column="pid" property="pid"/>
+            <result column="pname" property="pname"/>
+            <result column="market_price" property="marketPrice"/>
+            <result column="shop_price" property="shopPrice"/>
+            <result column="image" property="image"/>
+            <result column="pdesc" property="pdesc"/>
+            <result column="pdate" property="pdate"/>
+            <result column="is_hot" property="isHot"/>
+        </association>
+        <association property="orders" javaType="com.shop.model.Orders">
+            <id column="oid" property="oid"/>
+        </association>
+    </resultMap>
+
+    <!--提交订单-->
+    <insert id="submitOrders" parameterType="Orders">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="oid">
+            select last_insert_id()
+        </selectKey>
+        insert into orders(oid,total,ordertime,state,name,phone,addr,uid)
+        values (#{oid},#{total},#{orderTime},#{state},#{name},#{phone},#{addr},#{user.uid})
+    </insert>
+
+    <!--保存订单项-->
+    <insert id="saveOrderItem" parameterType="OrderItem">
+        insert into orderitem(itemid,count,subtotal,pid,oid)
+        values (#{orderItemId},#{count},#{subtotal},#{product.pid},#{orders.oid})
+    </insert>
+
+    <!--按照订单id查找订单-->
+    <select id="findOrderByOid" parameterType="java.lang.Integer" resultMap="orderAndUser">
+        select o.oid,o.total,o.ordertime,o.state,o.name,o.phone,o.addr,
+               u.uid,u.username,u.phone,u.addr,
+               oi.count,oi.subtotal,
+               p.image,p.pname,p.shop_price
+        from orders o,'user' u,orderitem oi,product p
+        where o.oid = #{oid} and o.uid = u.uid and o.oid = oi.oid and oi.pid = p.pid
+    </select>
+
+    <!--根据用户id查找订单-->
+    <select id="findOrderByUid" parameterType="java.lang.Integer" resultMap="orderAndUser">
+        select o.oid,o.total,o.ordertime,o.state,o.name,o.phone,o.addr,
+               oi.count,oi.subtotal,
+               p.image,p.pname,p.shop_price
+        from orders o,orderitem oi,product p
+        where o.uid = #{uid} and o.oid = oi.oid and oi.pid = p.pid
+    </select>
+
+    <!--根据订单项id查找订单项-->
+    <select id="findOrderItemByOid" parameterType="java.lang.Integer" resultMap="orderItme">
+        select oi.itemid,oi.count,oi.subtotal,
+               p.pname,p.image,p.pdesc,p.shop_price,p.pdate,p.is_hot
+        from product p,orderitem oi
+        where oi.oid = #{oid} and oi.pid = p.pid
+    </select>
+
+    <!--修改订单-->
+    <update id="updateOrders" parameterType="Orders">
+        update orders
+        set name = #{name},
+            phone = #{phone},
+            addr = #{addr},
+            state = #{state}
+    </update>
+
+    <!--查找所有订单-->
+    <select id="findOrders" resultMap="orderAndUser" parameterType="PageBean">
+        select o.oid,o.ordertime,o.name,o.total,o.state
+        from orders o
+        <where>
+            <if test="pageBean != null">
+                <if test="oid != null and oid != ''">
+                    and o.oid=#{oid}
+                </if>
+                <if test="username != null and username != ''">
+                    and o.username=#{username}
+                </if>
+                <if test="startTime != null and startTime != ''">
+                    and o.orderTime > #{startTime}
+                </if>
+                <if test="endTime != null and endTime != ''">
+                    <![CDATA[and o.orderTime < #{endTime}]]>
+                </if>
+                <if test="state != null and state != ''">
+                    <if test="state != 0">
+                        and o.state == #{state}
+                    </if>
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <!--订单数-->
+    <select id="findOrdersCount" resultType="int">
+        select count(*)
+        from orders
+    </select>
+
+</mapper>

@@ -55,7 +55,7 @@ public interface IOrderDao {
     void updateOrders(Orders order);
 
     /**
-     * 查询所有订单
+     * 条件查询订单
      * @param pageBean
      * @return
      */
@@ -66,4 +66,11 @@ public interface IOrderDao {
      * @return
      */
     int findOrdersCount();
+
+
+    /**
+     * 删除订单
+     * @param oid
+     */
+    void deleteOrder(int oid);
 }

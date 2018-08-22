@@ -24,6 +24,7 @@ public class OrderController {
     @Resource
     private IOrderService orderService;
 
+
     /**
      * 提交订单
      * @param model
@@ -166,7 +167,9 @@ public class OrderController {
      */
     @RequestMapping("/findOrders")
     public String findOrders(Model model,PageBean<Orders> pageBean){
+
         pageBean = orderService.findOrders(pageBean);
+        System.out.println("pageBean:Controller***************"+pageBean);
         model.addAttribute("pageBean",pageBean);
         return "order_list";
     }
@@ -179,7 +182,7 @@ public class OrderController {
      * @param oid
      * @return
      */
-    @RequestMapping("/orderDetail")
+    @RequestMapping("/findOrderByOid")
     public String orderDetail(Model model,int oid){
         Orders order = orderService.findOrderByOid(oid);
         model.addAttribute("order",order);
@@ -187,6 +190,10 @@ public class OrderController {
     }
 
 
+    /**
+     * 改变订单状态
+     * @param order
+     */
     @RequestMapping("/changeState")
     public void changeState(Orders order){
         if(order.getState() <= 2){
@@ -194,6 +201,14 @@ public class OrderController {
             orderService.updateOrder(order);
         }
     }
+
+
+    @RequestMapping("deleteOrder")
+    public void deleteOrder(int oid){
+
+    }
+
+
 
 
 }

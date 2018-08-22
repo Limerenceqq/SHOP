@@ -26,7 +26,7 @@
             <i class="shopLinkIcon"></i>
             <span>访问站点</span>
         </a>
-        <a href="admin_list.html" target="mainCont" title="DeathGhost">
+        <a href="admin_list.htm" target="mainCont" title="DeathGhost">
             <i class="adminIcon"></i>
             <span>管理员：${sessionScope.user.username}</span>
         </a>

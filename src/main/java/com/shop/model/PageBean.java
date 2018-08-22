@@ -9,6 +9,7 @@ import java.util.List;
  *@desc  分页显示数据类 PageBean
  **/
 public class PageBean<T> {
+    private String productName;
     /**
      * 所要查询订单的oid
      */
@@ -168,10 +169,19 @@ public class PageBean<T> {
         this.endTime = endTime;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     @Override
     public String toString() {
         return "PageBean{" +
-                "oid=" + oid +
+                "productName='" + productName + '\'' +
+                ", oid=" + oid +
                 ", username='" + username + '\'' +
                 ", state=" + state +
                 ", startTime=" + startTime +

@@ -59,4 +59,17 @@ public interface IProductDao {
      */
     Product findProductByPid(int pid);
 
+    /**
+     * 查询所有商品的数量
+     * @return
+     */
+    int findProductCount();
+
+    /**
+     * 管理员条件查询商品
+     * @param pageBean
+     * @return
+     */
+    List<Product> findProducts(PageBean pageBean);
+
 }

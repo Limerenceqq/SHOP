@@ -90,6 +90,11 @@ public interface IOrderService {
      */
     PageBean<Orders> findOrders(PageBean pageBean);
 
+    /**
+     * 删除订单
+     * @param oid
+     */
+    void deleteOrder(int oid);
 
 
 }

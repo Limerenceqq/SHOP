@@ -84,4 +84,25 @@ public class ProductController {
     }
 
 
+    /**
+     * 管理员条件查找商品
+     * @return
+     */
+    @RequestMapping("/findProducts")
+    public String findProduct(Model model,PageBean pageBean){
+
+        pageBean = productService.findProducts(pageBean);
+        model.addAttribute("pageBean",pageBean);
+        return "product_list";
+    }
+
+
+    @RequestMapping("/findProductDesc")
+    public String findProductDesc(int pid,Model model){
+        Product product=productService.findProductByPid(pid);
+        model.addAttribute("product", product);
+        return "";
+    }
+
+
 }

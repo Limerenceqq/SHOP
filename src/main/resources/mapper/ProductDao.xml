@@ -12,14 +12,12 @@
         <result column="pdate" property="pdate"/>
     </resultMap>
 
-
     <!--查找热门商品-->
     <select id="findAllHotProduct" resultMap="productMap">
         select pid,pname,market_price,shop_price,image,pdesc,is_hot,pdate
         from product
         where is_hot=1
     </select>
-
 
     <!--查找最新商品-->
     <select id="findAllNewProduct" resultMap="productMap">
@@ -29,7 +27,6 @@
         limit 0,10
     </select>
 
-
     <!--查找一级目录下的商品数量-->
     <select id="findCountByCid" parameterType="int" resultType="Integer">
         select count(*)
@@ -38,8 +35,7 @@
         where c.cid =#{cid}
     </select>
 
-
-    <!--商品数据集合-->
+    <!--分页商品数据集合-->
     <select id="findByPage" parameterType="PageBean" resultMap="productMap">
         select
             p.pid,
@@ -58,14 +54,12 @@
         limit #{begin},#{limit}
     </select>
 
-
     <!--查询二级类目下的商品数量-->
     <select id="findCountByCsid" parameterType="int" resultType="Integer">
         select count(pid)
         from product p
         where p.csid=#{csid}
     </select>
-
 
     <!--根据二级分类分页查询商品-->
     <select id="findByPageCsid" parameterType="PageBean" resultMap="productMap">
@@ -85,7 +79,6 @@
         limit #{begin},#{limit}
     </select>
 
-
     <!--根据商品id查找商品详情-->
     <select id="findProductByPid" parameterType="int" resultMap="productMap">
         select
@@ -102,5 +95,30 @@
             product p
         where
             p.pid=#{pid}
+    </select>
+
+    <!--查找商品的总数量-->
+    <select id="findProductCount" resultType="int" >
+        select count(pid)
+        from product
+    </select>
+
+    <!--管理员条件查询商品-->
+    <select id="findProducts" parameterType="PageBean" resultMap="productMap">
+        select p.pid,
+               p.image,
+               p.name,
+               p.pdesc,
+               p.marketPricr,
+               p.shopPrice,
+               p.pdata,
+               p.isHot
+        from product p
+        <where>
+            <if test="productName != null">
+                and p.pname = #{productName}
+            </if>
+        </where>
+        limit #{begin} ,#{limit}
     </select>
 </mapper>

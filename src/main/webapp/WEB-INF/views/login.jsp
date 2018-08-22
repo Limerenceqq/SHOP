@@ -18,8 +18,7 @@
     <title>用户登录页</title>
     <link href="${path}/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/css/login.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript"
-            src="${path}/js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="${path}/js/jquery-2.2.3.min.js"></script>
 </head>
 <body>
 

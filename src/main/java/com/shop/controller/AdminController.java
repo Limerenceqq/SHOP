@@ -1,12 +1,8 @@
 package com.shop.controller;
 
-import com.shop.model.Orders;
-import com.shop.model.PageBean;
-import com.shop.service.IAdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 
 /**
 *@author asus11

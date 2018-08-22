@@ -137,4 +137,35 @@ public class ProductServiceImpl implements IProductService {
         return categoryService.findAllCategory();
     }
 
+    /**
+     * 管理员条件查询商品
+     * @param pageBean
+     * @return
+     */
+    @Override
+    public PageBean<Product> findProducts(PageBean pageBean){
+        //每页显示的数量
+        int limit = 12;
+        //总页数
+        int totalPage = 0;
+        int totalCount = productDao.findProductCount();
+        //计算总页数
+        if(totalCount % limit == 0){
+            totalPage = totalCount / limit;
+        }else{
+            totalPage = totalCount / limit + 1;
+        }
+        //起始页数
+        int begin = (pageBean.getPageNow() - 1)*limit;
+        //封装pageBean
+        pageBean.setBegin(begin);
+        pageBean.setLimit(limit);
+        pageBean.setTotalCount(totalCount);
+        pageBean.setTotalPage(totalPage);
+        //要显示的数据的集合
+        List<Product> list = productDao.findProducts(pageBean);
+        pageBean.setList(list);
+        return pageBean;
+    }
+
 }

@@ -25,7 +25,7 @@ public interface IProductService {
      */
     List<Product> findAllNewProduct();
     /**
-     * 分页查询商品
+     * 一级目录分页查询商品
      * @param pageBean
      * @return
      */
@@ -47,5 +47,12 @@ public interface IProductService {
      * @return
      */
     List<Category> findAllCategory();
+
+    /**
+     * 管理员条件查询商品
+     * @param pageBean
+     * @return
+     */
+    PageBean<Product> findProducts(PageBean pageBean);
 
 }

@@ -76,29 +76,29 @@
                     <th>数量</th>
                     <th>小计</th>
                 </tr>
+                <c:forEach items="${order.orderItems}" var="orderItem">
                 <tr>
-                    <c:forEach items="${order.orderItems}" var="orderItem">
-                        <td>
-                            <img src="${path}/${orderItem.product.image}" class="thumbnail"/>
-                        </td>
-                        <td>
-                            ${orderItem.product.pname}
-                        </td>
-                        <td>
-                           <span>
-                            <i>￥</i>
-                            <em>${orderItem.product.shopPrice}</em>
-                           </span>
-                        </td>
-                        <td>
-                            ${orderItem.count}
-                        </td>
-                        <td>
-                           <span>
-                               <i>￥</i>
-                               <em>${orderItem.subtotal}</em>
-                           </span>
-                        </td>
+                    <td>
+                        <img src="${path}/${orderItem.product.image}" class="thumbnail"/>
+                    </td>
+                    <td>
+                        ${orderItem.product.pname}
+                    </td>
+                    <td>
+                       <span>
+                        <i>￥</i>
+                        <em>${orderItem.product.shopPrice}</em>
+                       </span>
+                    </td>
+                    <td>
+                        ${orderItem.count}
+                    </td>
+                    <td>
+                       <span>
+                           <i>￥</i>
+                           <em>${orderItem.subtotal}</em>
+                       </span>
+                    </td>
                     </c:forEach>
                 </tr>
                 <tr>

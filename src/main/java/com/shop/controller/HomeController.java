@@ -70,6 +70,15 @@ public class HomeController {
         return "login";
     }
 
+    /**
+     * 管理员添加商品页面
+     * @return
+     */
+    @RequestMapping("/addProduct")
+    public String addProduct(){
+        return "add_product";
+    }
+
 
 
 

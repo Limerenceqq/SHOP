@@ -163,11 +163,16 @@ public class OrderServiceImpl implements IOrderService {
     }
 
 
+    /**
+     * 符合查询
+     * @param pageBean
+     * @return
+     */
     @Override
     public PageBean<Orders> findOrders(PageBean pageBean){
 
         //设置每页显示订单数
-        int limit = 8;
+        int limit = 12;
         //总页数
         int totalPage = 0;
         //总订单数
@@ -190,6 +195,15 @@ public class OrderServiceImpl implements IOrderService {
 
         pageBean.setList(orders);
         return pageBean;
+    }
+
+    /**
+     * 删除订单
+     * @param oid
+     */
+    @Override
+    public void deleteOrder(int oid){
+        orderDao.deleteOrder(oid);
     }
 
 }

@@ -68,11 +68,12 @@
     <!--按照订单id查找订单-->
     <select id="findOrderByOid" parameterType="java.lang.Integer" resultMap="orderAndUser">
         select o.oid,o.total,o.ordertime,o.state,o.name,o.phone,o.addr,
-               u.uid,u.username,u.phone,u.addr,
+               u.uid,u.username,u.phone,
                oi.count,oi.subtotal,
                p.image,p.pname,p.shop_price
-        from orders o,'user' u,orderitem oi,product p
-        where o.oid = #{oid} and o.uid = u.uid and o.oid = oi.oid and oi.pid = p.pid
+        from orders o join user u join orderitem oi join product p
+             on o.uid = u.uid and o.oid = oi.oid and oi.pid = p.pid
+        where o.oid = #{oid}
     </select>
 
     <!--根据用户id查找订单-->
@@ -80,16 +81,18 @@
         select o.oid,o.total,o.ordertime,o.state,o.name,o.phone,o.addr,
                oi.count,oi.subtotal,
                p.image,p.pname,p.shop_price
-        from orders o,orderitem oi,product p
-        where o.uid = #{uid} and o.oid = oi.oid and oi.pid = p.pid
+        from orders join orderitem oi join product p
+         on  o.oid = oi.oid and oi.pid = p.pid
+        where o.uid = #{uid}
     </select>
 
     <!--根据订单项id查找订单项-->
     <select id="findOrderItemByOid" parameterType="java.lang.Integer" resultMap="orderItme">
         select oi.itemid,oi.count,oi.subtotal,
                p.pname,p.image,p.pdesc,p.shop_price,p.pdate,p.is_hot
-        from product p,orderitem oi
-        where oi.oid = #{oid} and oi.pid = p.pid
+        from product p join orderitem oi
+         on  oi.pid = p.pid
+        where oi.oid = #{oid}
     </select>
 
     <!--修改订单-->
@@ -101,12 +104,11 @@
             state = #{state}
     </update>
 
-    <!--查找所有订单-->
+    <!--条件查找订单-->
     <select id="findOrders" resultMap="orderAndUser" parameterType="PageBean">
         select o.oid,o.ordertime,o.name,o.total,o.state
         from orders o
         <where>
-            <if test="pageBean != null">
                 <if test="oid != null and oid != ''">
                     and o.oid=#{oid}
                 </if>
@@ -124,8 +126,8 @@
                         and o.state == #{state}
                     </if>
                 </if>
-            </if>
         </where>
+        limit #{begin},#{limit}
     </select>
 
     <!--订单数-->
@@ -133,5 +135,11 @@
         select count(*)
         from orders
     </select>
+
+    <!--删除订单-->
+    <delete id="deleteOrder" parameterType="int">
+        delete from orders
+        where oid = #{oid}
+    </delete>
 
 </mapper>

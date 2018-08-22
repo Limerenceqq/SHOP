@@ -32,21 +32,24 @@
     </div>
     <div class="operate">
         <form action="${path}/order/findOrders?pageNow=1" method="post">
+
             <img src="${path}/images/icon_search.gif"/>
-            <input type="text" id="oid" class="textBox length-long" placeholder="输入订单编号..."/>
-            <input type="text" id="username" class="textBox length-long" placeholder="输入下单人姓名..."/>
+            <input type="text" id="oid" name="oid" class="textBox length-long" placeholder="输入订单编号..."
+                   style="width: 200px"/>
+            <input type="text" id="username" name="username" class="textBox length-long"
+                   placeholder="输入下单人姓名..." style="width: 200px"/>
             <input type="text" id="startTime" name="startTime" class="Wdate"
                    onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" placeholder="起始时间..."/>
             <input type="text" id="endTime" name="endTime" class="Wdate"
                    onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" placeholder="最后时间..."/>
-            <select class="inline-select" id="state" name="state" >
-                <option value="0">状——态</option>
+            <select class="inline-select" id="state" name="state" placeholder="状态" class="tdBtn">
+                <%--<option value="0">状—态</option>--%>
                 <option value="1">未付款</option>
                 <option value="2">已付款</option>
                 <option value="3">已发货</option>
                 <option value="4">已收货</option>
             </select>
-            <input type="sbmit" value="查询" class="tdBtn"/>
+            <input type="submit" value="查询" class="tdBtn" style="width: 50px"/>
         </form>
     </div>
     <table class="list-style Interlaced">
@@ -58,45 +61,47 @@
             <th>订单状态</th>
             <th>操作</th>
         </tr>
+
+        <c:forEach items="${pageBean.list}" var="orders">
         <tr>
-            <c:forEach items="${pageBean.list}" var="orders">
-                <td>
-                    <input type="checkbox"/>
-                    <span>${orders.oid}</span>
-                </td>
-                <td class="center">
-                    <span class="block">${orders.user.username}</span>
-                    <span class="block">${orders.orderTime}</span>
-                </td>
-                <td width="450">
-                    <span class="block">${orders.name}</span>
-                    <address>${orders.addr}</address>
-                </td>
-                <td class="center">
-                    <span><i>￥</i><b>${orders.total}</b></span>
-                </td>
-                <td class="center">
-                    <c:if test="${orders.state == 1}">
-                        <span>未付款</span>
-                    </c:if>
-                    <c:if test="${orders.state == 2}">
-                        <span>已付款</span>
-                    </c:if>
-                    <c:if test="${orders.state == 3}">
-                        <span>已发货</span>
-                    </c:if>
-                    <c:if test="${orders.state == 4}">
-                        <span>已收货</span>
-                    </c:if>
-                </td>
-                <td class="center">
-                    <a href="${path}/order/orderDetail?oid=${orders.oid}" class="inline-block" title="查看订单">
-                        <img src="${path}/images/icon_view.gif"/></a>
-                    <a href="${path}/order/deletOrder" class="inline-block" title="删除订单">
-                        <img src="${path}/images/icon_trash.gif"/></a>
-                </td>
-            </c:forEach>
+            <td>
+                <input type="checkbox"/>
+                <span>${orders.oid}</span>
+            </td>
+            <td class="center">
+                <span class="block">${orders.user.username}</span>
+                <span class="block">${orders.orderTime}</span>
+            </td>
+            <td width="450">
+                <span class="block">${orders.name}</span>
+                <address>${orders.addr}</address>
+            </td>
+            <td class="center">
+                <span><i>￥</i><b>${orders.total}</b></span>
+            </td>
+            <td class="center">
+                <c:if test="${orders.state == 1}">
+                    <span>未付款</span>
+                </c:if>
+                <c:if test="${orders.state == 2}">
+                    <span>已付款</span>
+                </c:if>
+                <c:if test="${orders.state == 3}">
+                    <span>已发货</span>
+                </c:if>
+                <c:if test="${orders.state == 4}">
+                    <span>已收货</span>
+                </c:if>
+            </td>
+            <td class="center">
+                <a href="${path}/order/findOrderByOid?oid=${orders.oid}" class="inline-block" title="查看订单">
+                    <img src="${path}/images/icon_view.gif"/></a>
+                <a href="${path}/order/deleteOrder" class="inline-block" title="删除订单">
+                    <img src="${path}/images/icon_trash.gif"/></a>
+            </td>
         </tr>
+        </c:forEach>
+
     </table>
     <!-- BatchOperation -->
     <div style="overflow:hidden;">

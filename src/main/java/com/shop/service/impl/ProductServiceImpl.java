@@ -145,7 +145,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public PageBean<Product> findProducts(PageBean pageBean){
         //每页显示的数量
-        int limit = 12;
+        int limit = 5;
         //总页数
         int totalPage = 0;
         int totalCount = productDao.findProductCount();

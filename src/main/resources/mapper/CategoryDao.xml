@@ -15,5 +15,4 @@
         from category c,categorySecond cs
         where cs.cid=c.cid
     </select>
-
 </mapper>

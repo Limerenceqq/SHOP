@@ -40,7 +40,7 @@
         </li>
         <li>
             <ul class="menu-children">
-                <li><a href="${path}/product/findProducts" title="商品列表" target="mainCont">商品列表</a></li>
+                <li><a href="${path}/product/findProducts?pageNow=1" title="商品列表" target="mainCont">商品列表</a></li>
                 <li><a href="${path}/product_category.jsp" title="商品分类" target="mainCont">商品分类</a></li>
                 <li><a href="${path}/recycle_bin.jsp" title="商品分类" target="mainCont">商品回收站</a></li>
             </ul>

@@ -107,18 +107,18 @@
     <select id="findProducts" parameterType="PageBean" resultMap="productMap">
         select p.pid,
                p.image,
-               p.name,
+               p.pname,
                p.pdesc,
-               p.marketPricr,
-               p.shopPrice,
-               p.pdata,
-               p.isHot
+               p.market_price,
+               p.shop_price,
+               p.pdate,
+               p.is_hot
         from product p
         <where>
             <if test="productName != null">
                 and p.pname = #{productName}
             </if>
         </where>
-        limit #{begin} ,#{limit}
+        limit #{begin},#{limit}
     </select>
 </mapper>

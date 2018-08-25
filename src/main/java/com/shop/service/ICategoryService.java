@@ -2,6 +2,7 @@ package com.shop.service;
 
 
 import com.shop.model.Category;
+import com.shop.model.CategorySecond;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface ICategoryService {
      * @return
      */
     List<Category> findAllCategory();
+
 }

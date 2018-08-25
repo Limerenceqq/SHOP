@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 *@author asus11
@@ -97,11 +100,16 @@ public class ProductController {
     }
 
 
-    @RequestMapping("/findProductDesc")
-    public String findProductDesc(int pid,Model model){
-        Product product=productService.findProductByPid(pid);
-        model.addAttribute("product", product);
-        return "";
+    /**
+     * 管理员添加商品
+     * @param product
+     * @param model
+     * @return
+     */
+    @RequestMapping("/addProduct")
+    public String addProduct(Product product,Model model){
+
+        return "forward:add_product";
     }
 
 

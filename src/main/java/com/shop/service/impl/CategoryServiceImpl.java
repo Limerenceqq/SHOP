@@ -2,6 +2,7 @@ package com.shop.service.impl;
 
 import com.shop.dao.ICategoryDao;
 import com.shop.model.Category;
+import com.shop.model.CategorySecond;
 import com.shop.service.ICategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

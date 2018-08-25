@@ -1,6 +1,8 @@
 package com.shop.dao;
 
 import com.shop.model.Category;
+import com.shop.model.CategorySecond;
+
 import java.util.List;
 
 
@@ -16,4 +18,11 @@ public interface ICategoryDao {
      * @return
      */
     List<Category> findAllCategory();
+
+    /**
+     * 根据一级目录查找二级目录
+     * @param cid
+     * @return
+     */
+    List<CategorySecond> findCategorySecond(int cid);
 }

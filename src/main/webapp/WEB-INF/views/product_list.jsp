@@ -18,12 +18,18 @@
     <link href="style/adminStyle.css" rel="stylesheet" type="text/css" />
     <script src="${path}/js/jquery1.js"></script>
     <script src="${path}/js/public.js"></script>
+    <%--<link href="${path}/css/common.css" rel="stylesheet" type="text/css"/>--%>
+    <link href="${path}/css/product.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div class="wrap">
     <div class="page-title">
-        <span class="modular fl"><i></i><em>产品列表</em></span>
-        <span class="modular fr"><a href="${path}/home/addProduct" class="pt-link-btn">+添加商品</a></span>
+        <span class="modular fl">
+            <em>产品列表</em>
+        </span>
+        <span class="modular fl">
+            <a href="${path}/category/getCategory" class="pt-link-btn">添加商品</a>
+        </span>
     </div>
     <div class="operate">
         <form>
@@ -32,7 +38,7 @@
             <input type="submit" value="查询" class="tdBtn"/>
         </form>
     </div>
-    <table class="list-style Interlaced">
+    <table class="list-style Interlaced" border="8">
         <tr>
             <th>商品编号</th>
             <th>商品图片</th>
@@ -52,31 +58,35 @@
                  <i>${product.pid}</i>
                  </span>
             </td>
-            <td class="center pic-area"><img src="${path}/${product.image}" class="thumbnail"/></td>
-            <td class="td-name">
-                <span class="ellipsis td-name block">${product.pname}</span>
+            <td class="center pic-area">
+                <img src="${path}/${product.image}" class="thumbnail" style="width:100px;height:80px" />
             </td>
-            <td class="center">
-                 <span>
+            <td class="td-name" style="width: 150px">
+                <span class="ellipsis td-name block" style="font-size:15px">
+                        ${product.pname}
+                </span>
+            </td>
+            <td class="center" style="width:500px">
+                 <span style="font-size:10px;">
                   ${product.pdesc}
                  </span>
             </td>
-            <td class="center">
+            <td class="center" align="center">
                  <span>
-                  ${product.pdata}
+                  ${product.pdate}
                  </span>
             </td>
-            <td class="center">
+            <td class="center" align="center">
                  <span>
-                  ${product.marketPrice}
+                  $${product.marketPrice}
                  </span>
             </td>
-            <td class="center">
+            <td class="center" align="center">
                 <span>
-                        ${product.shopPrice}
+                    $${product.shopPrice}
                 </span>
             </td>
-            <td class="center">
+            <td class="center" align="center">
                 <c:if test="${product.isHot == 1}">
                     <span>
                         <img src="${path}/images/yes.gif"/>
@@ -88,11 +98,11 @@
                     </span>
                 </c:if>
             </td>
-            <td class="center">
-                <a href="${path}/product/findProductDesc?pid=${product.pid}" title="查看" target="_blank">
+            <td class="center" align="center">
+                <%--<a href="${path}/product/findProductDesc?pid=${product.pid}" title="查看" target="_blank">
                     <img src="${path}/images/icon_view.gif"/>
-                </a>
-                <a href="edit_product.html" title="编辑">
+                </a>--%>
+                <a href="${path}/product/editProduct" title="编辑">
                     <img src="${path}/images/icon_edit.gif"/>
                 </a>
                 <a title="删除">
@@ -111,10 +121,24 @@
             <input type="button" value="批量删除" class="btnStyle"/>
         </div>
         <!-- turn page -->
-        <div class="turnPage center fr">
-            <a>第一页</a>
-            <a>1</a>
-            <a>最后一页</a>
+        <div class="pagination">
+            第  ${pageBean.pageNow}/${pageBean.totalPage}页
+            <c:if test="${ pageBean.pageNow != 1}">
+                <a href="${path}/product/findProducts?pageNow=1" class="firstPage">&nbsp;</a>
+                <a href="${path}/product/findProducts?pageNow=${pageBean.pageNow-1 }" class="previousPage">&nbsp;</a>
+            </c:if>
+            <c:forEach var="i" begin="1" end="${pageBean.totalPage}" step="1">
+                <c:if test="${pageBean.pageNow==i }">
+                    <span class="currentPage">${i}</span>
+                </c:if>
+                <c:if test="${pageBean.pageNow!=i }">
+                    <a href="${ path }/product/findProducts?pageNow=${i}">${i}</a>
+                </c:if>
+            </c:forEach>
+            <c:if test="${pageBean.pageNow != pageBean.totalPage }">
+                <a class="nextPage" href="${path}/product/findProducts?pageNow=${pageBean.pageNow+1 }">&nbsp;</a>
+                <a class="lastPage" href="${path}/product/findProducts?pageNow=${pageBean.totalPage}">&nbsp;</a>
+            </c:if>
         </div>
     </div>
 </div>

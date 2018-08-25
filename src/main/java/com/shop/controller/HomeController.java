@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -52,8 +53,6 @@ public class HomeController {
         return "index";
     }
 
-
-
     /**
      *注册页面
      */
@@ -70,14 +69,7 @@ public class HomeController {
         return "login";
     }
 
-    /**
-     * 管理员添加商品页面
-     * @return
-     */
-    @RequestMapping("/addProduct")
-    public String addProduct(){
-        return "add_product";
-    }
+
 
 
 

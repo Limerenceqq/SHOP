@@ -118,7 +118,7 @@
             第  ${pageBean.pageNow}/${pageBean.totalPage}页
             <c:if test="${ pageBean.pageNow != 1}">
                 <a href="${path}/order/findOrders?pageNow=1" class="firstPage">&nbsp;</a>
-                <a href="${path}/order/findOrders?&pageNow=${pageBean.pageNow-1 }" class="previousPage">&nbsp;</a>
+                <a href="${path}/order/findOrders?pageNow=${pageBean.pageNow-1 }" class="previousPage">&nbsp;</a>
             </c:if>
             <c:forEach var="i" begin="1" end="${pageBean.totalPage}" step="1">
                 <c:if test="${pageBean.pageNow==i }">
@@ -130,7 +130,7 @@
             </c:forEach>
             <c:if test="${pageBean.pageNow != pageBean.totalPage }">
                 <a class="nextPage" href="${path}/order/findOrders?pageNow=${pageBean.pageNow+1 }">&nbsp;</a>
-                <a class="lastPage" href="${path}/order/findorders?pageNow=${pageBean.totalPage}">&nbsp;</a>
+                <a class="lastPage" href="${path}/order/findOrders?pageNow=${pageBean.totalPage}">&nbsp;</a>
             </c:if>
         </div>
     </div>

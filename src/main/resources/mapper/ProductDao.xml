@@ -121,4 +121,16 @@
         </where>
         limit #{begin},#{limit}
     </select>
+    
+    <!--管理员删除商品-->
+    <delete id="delProduct" parameterType="int">
+        delete from product
+        where pid = #{pid}
+    </delete>
+
+    <!--添加商品-->
+    <insert id="addProduct" parameterType="Product">
+        insert into product(pid,pname,market_price,shop_price,image,pdesc,is_hot,pdate,csid)
+        values(#{pid},#{pname},#{marketPrice},#{shopPrice},#{image},#{pdesc},#{isHot},#{pdate},#{categorySecond.csid})
+    </insert>
 </mapper>

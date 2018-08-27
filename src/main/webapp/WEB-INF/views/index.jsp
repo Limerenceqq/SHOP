@@ -58,7 +58,7 @@
                             <li>
                                 <a target="_blank" href="${path}/product/findProductByPid?pid=${hotProduct.pid}">
                                     <img src="${path}/${hotProduct.image}" style="display: block;"/>
-                                    <input type="text" value="${hotProduct.pname}" maxlength="220px"/>
+                                    <input type="text" value="${hotProduct.pname}" maxlength="220px" style="border: none"/>
                                 </a>
                             </li>
                         </c:forEach>
@@ -86,7 +86,7 @@
                                 <li>
                                     <a  target="_blank" href="${path}/product/findProductByPid?pid=${newProduct.pid}">
                                         <img src="${path}/${newProduct.image}" style="display: block;"/>
-                                        <input type="text" value="${newProduct.pname}"/>
+                                        <input type="text" value="${newProduct.pname}" maxlength="220px" style="border:none" />
                                     </a>
                                 </li>
                             </c:forEach>

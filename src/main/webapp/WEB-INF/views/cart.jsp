@@ -85,23 +85,24 @@
                 <c:set var="i" value="${i+1}"/>
             </c:forEach>
             <!--底部-->
+
             <div class="bar-wrapper">
                 <div class="bar-right">
                     <div class="piece">已选商品<strong class="piece_num">0</strong>件</div>
                     <div class="totalMoney">共计: <strong class="total_text">0.00</strong></div>
                     <div class="calBtn">
-                        <input type="submit" value="结算" style="display: block;
+                        <input type="submit" value="提交订单" style="display: block;
                                                                 width: 110px;
                                                                 height: 50px;
-                                                                color: #fff;
-                                                                background: #B0B0B0;
+                                                                color: white;
+                                                                background: #d80000;
                                                                 font-size: 22px;
                                                                 letter-spacing: 5px;
                                                                 text-decoration: none;
                                                                 line-height: 50px;
                                                                 text-align: center;
-                                                                border-radius: 2px;">${msg}
-                    </div>
+                                                                border-radius: 2px;">
+                    </div><span style="color: #d80000">${msg}</span>
                 </div>
             </div>
         </form>

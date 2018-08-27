@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,8 +112,22 @@ public class ProductController {
     @RequestMapping("/addProduct")
     public String addProduct(Product product,Model model){
 
-        return "forward:add_product";
+        return "add_product";
     }
 
-
+    /**
+     * 管理员删除商品
+     * @param pid
+     * @param response
+     */
+    @RequestMapping("/delProduct")
+    public void delProduct(String pid, HttpServletResponse response){
+        int pid1 = Integer.parseInt(pid);
+        int flag = productService.delProduct(pid1);
+        try {
+            response.getWriter().print(flag);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

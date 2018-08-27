@@ -20,6 +20,28 @@
     <script src="${path}/js/public.js"></script>
     <%--<link href="${path}/css/common.css" rel="stylesheet" type="text/css"/>--%>
     <link href="${path}/css/product.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        function delProduct(pid) {
+            //alert(pid);
+            $.ajax({
+                type:"get",
+                url: "${path}/product/delProduct",
+                data:{
+                    pid:pid
+                },
+                dataType:"text",
+                success:function (content) {
+                    if(content == 1){
+                        alert("pid");
+                        $("#tr"+pid).remove();
+                        alert("删除id="+pid+"的用户成功!");
+                    }else{
+                        alert("删除id="+pid+"的用户失败!");
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <div class="wrap">
@@ -51,7 +73,7 @@
             <th>操作</th>
         </tr>
         <c:forEach items="${pageBean.list}" var="product">
-        <tr>
+        <tr id="tr${product.pid}">
             <td>
                  <span>
                  <input type="checkbox" class="middle children-checkbox"/>
@@ -105,7 +127,7 @@
                 <a href="${path}/product/editProduct" title="编辑">
                     <img src="${path}/images/icon_edit.gif"/>
                 </a>
-                <a title="删除">
+                <a title="删除" onclick="delProduct(${product.pid})">
                     <img src="${path}/images/icon_drop.gif"/>
                 </a>
             </td>

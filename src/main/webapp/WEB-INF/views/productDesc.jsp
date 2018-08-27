@@ -108,7 +108,7 @@
                         <input id="count" name="count" value="1" maxlength="4" onpaste="return false;" type="text"/>
                     </dd>
                     <dd>
-                        件
+                        件<span style="color: #d80000">${msg}</span>
                     </dd>
                 </dl>
                 <div class="buy">

@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import com.shop.Util;
 import com.shop.model.Cart;
 import com.shop.model.CartItem;
 import com.shop.model.Product;
@@ -25,14 +26,17 @@ public class CartController {
     private IProductService productService;
 
     /**
-     * 展示购物车
+     * 查看购物车
+     * @param model
+     * @param request
+     * @return
      */
     @RequestMapping("/showCart")
     public String showCart(Model model,HttpServletRequest request){
         //判断用户是否登陆,没登陆则提示登陆
         String user = "user";
         HttpSession session = request.getSession();
-        String msg = request.getParameter("msg");
+        String msg = "请选择至少一件商品！";
         if(session.getAttribute(user) == null){
             model.addAttribute("msg","您还没有登陆，请先去登录!");
             return "loginPromot";
@@ -50,32 +54,44 @@ public class CartController {
 
 
     /**
-     * 添加购物项
+     * 添加购物车
+     * @param model
+     * @param session
+     * @param pid
+     * @param count
+     * @return
      */
     @RequestMapping("/addCartItem")
-    public String addCart(Model model,HttpSession session,Integer pid,Integer count){
+    public String addCart(Model model,HttpSession session,Integer pid,String count){
         //判断用户是否登陆,没登陆则提示登陆
         String user = "user";
         if(session.getAttribute(user) == null) {
             model.addAttribute("msg","您还没有登陆，请先去登录!");
             return "loginPromot";
         }else {
-            if (pid != null && count != null) {
-                Product product = productService.findProductByPid(pid);
-                CartItem cartItem = new CartItem();
-                cartItem.setCount(count);
-                cartItem.setProduct(product);
-                cartItem.setSubtotal(count * product.getShopPrice());
-                //获取购物车
-                Cart cart = (Cart) session.getAttribute("cart");
-                if(cart == null){
-                    cart = new Cart();
-                    session.setAttribute("cart",cart);
+            if(pid != null && count != null) {
+                if(Util.isNum(count)) {
+                    Product product = productService.findProductByPid(pid);
+                    CartItem cartItem = new CartItem();
+                    int count1 = Integer.parseInt(count);
+                    cartItem.setCount(count1);
+                    cartItem.setProduct(product);
+                    cartItem.setSubtotal(count1 * product.getShopPrice());
+                    //获取购物车
+                    Cart cart = (Cart) session.getAttribute("cart");
+                    if (cart == null) {
+                        cart = new Cart();
+                        session.setAttribute("cart", cart);
+                    }
+                    //添加商品到购物车
+                    cart.addCartItem(cartItem);
+                    return "redirect:/cart/showCart";
+                }else{
+                    model.addAttribute("msg","输入的数量有误!");
+                    return "product/findProductByPid";
                 }
-                //添加商品到购物车
-                cart.addCartItem(cartItem);
-                return "redirect:/cart/showCart";
-            } else {
+            }else {
+                //
                 return "cart";
             }
         }
@@ -83,6 +99,8 @@ public class CartController {
 
     /**
      * 清空购物车
+     * @param session
+     * @return
      */
     @RequestMapping("/clearCart")
     public String clearCart(HttpSession session){
@@ -97,6 +115,9 @@ public class CartController {
 
     /**
      * 移除购物项
+     * @param session
+     * @param pid
+     * @return
      */
     @RequestMapping("/removeCartItem")
     public String removeCartItem(HttpSession session,Integer pid){

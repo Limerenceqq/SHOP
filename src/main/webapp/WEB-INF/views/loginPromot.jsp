@@ -24,7 +24,7 @@
         <div class="span5">
             <div class="logo">
                 <a href="${path}/home/index.do">
-                    <img src="${path}/image/logo.gif" alt="zmazon"/>
+                    <img src="${path}/image/logo.gif" alt="amazon"/>
                 </a>
             </div>
         </div>
@@ -42,15 +42,19 @@
             <h3 style="color: #cc0000" align="center">${msg}</h3>
         </tr>
         </br></br></br></br>
-        <tr align="center">
-            <a href="${path}/home/index.do" style="color: #f08b02"><h3 align="center">回到首页</h3></a>
-        </tr></br>
-        <tr>
-            <a href="${path}/home/register.do" style="color: #cc0000"><h3 align="center">去注册</h3></a>
-        </tr></br>
-        <tr>
-            <a href="${path}/home/login.do" style="color: #66f4df"><h3 align="center">去登录</h3></a>
-        </tr>
+        <c:if test="${sessionScope.get(user) != null}">
+            <tr align="center">
+                <a href="${path}/home/index.do" style="color: #f08b02"><h3 align="center">回到首页</h3></a>
+            </tr></br>
+        </c:if>
+        <c:if test="${sessionScope.get(user) == null}">
+            <tr>
+                <a href="${path}/home/register.do" style="color: #cc0000"><h3 align="center">去注册</h3></a>
+            </tr></br>
+            <tr>
+                <a href="${path}/home/login.do" style="color: #66f4df"><h3 align="center">去登录</h3></a>
+            </tr>
+        </c:if>
     </table>
     <h1>&nbsp;</h1>
     <div class="container footer">

@@ -44,7 +44,7 @@
             <c:forEach items="${categoryList}" var="c">
                 <dl>
                     <dt>
-                        <a href="${path}/product/productfindByCid?cid=${c.cid}&pageNow=1">${c.cname}</a>
+                        <a href="${path}/product/findProductByCid?cid=${c.cid}&pageNow=1">${c.cname}</a>
                     </dt>
                     <!-- 显示二级分类 -->
                     <c:forEach items="${c.categorySeconds}" var="cs">

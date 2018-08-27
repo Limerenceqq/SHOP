@@ -11,7 +11,6 @@
 <%@ page isELIgnored="false" %>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -63,16 +62,16 @@
                     <td width="60">
                         <img src="${path}/${orderItem.product.image}"/>
                     </td>
-                    <td>
+                    <td align="center">
                         <a target="_blank">${orderItem.product.pname}</a>
                     </td>
-                    <td>
+                    <td align="center">
                             ${orderItem.product.shopPrice}
                     </td>
-                    <td class="quantity" width="60">
+                    <td class="quantity" width="60" align="center">
                             ${orderItem.count}
                     </td>
-                    <td width="140">
+                    <td width="140" align="center">
                         <span class="subtotal">￥${orderItem.subtotal}</span>
                     </td>
                 </tr>
@@ -96,7 +95,7 @@
                     联系方式：<input name="orderPhone" type="text" value="${orders.user.phone }" style="width:150px" />
 
                 </p>
-                <hr />
+                <br/>
                 <p>
                     选择银行：<br/>
                     <input type="radio" name="pd_FrpId" value="ICBC-NET-B2C" checked="checked"/>工商银行
@@ -120,8 +119,19 @@
                 </p>
                 <hr />
                 <p style="text-align:right">
-                    <a href="javascript:document.getElementById('orderForm').submit();">
-                        <img src="${path}/images/finalbutton.gif" width="204" height="51" border="0" />
+                    <a href="${path}/order/payOrder">
+                        <%--<img src="${path}/images/finalbutton.gif" width="204" height="51" border="0" />--%>
+                            <input type="submit" value="付款" style="display: block;
+                                                                width: 110px;
+                                                                height: 50px;
+                                                                color: white;
+                                                                background: #d80000;
+                                                                font-size: 30px;
+                                                                letter-spacing: 5px;
+                                                                text-decoration: none;
+                                                                line-height: 50px;
+                                                                text-align: center;
+                                                                border-radius: 2px;">
                     </a>
                 </p>
             </div>

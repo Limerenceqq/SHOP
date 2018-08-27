@@ -168,4 +168,19 @@ public class ProductServiceImpl implements IProductService {
         return pageBean;
     }
 
+    /**
+     * 管理员删除商品
+     * @param pid
+     */
+    @Override
+    public int delProduct(int pid){
+        int flag = productDao.delProduct(pid);
+        return flag;
+    }
+
+    @Override
+    public void addProduct(Product product){
+        productDao.addProduct(product);
+    }
+
 }

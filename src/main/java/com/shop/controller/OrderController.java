@@ -36,8 +36,8 @@ public class OrderController {
     public String submitOrders(Model model,String[] checked,HttpServletRequest request){
 
         if(checked == null){
-            request.setAttribute("msg","请选择至少一件商品！");
-            return "forward:/cart/showCart";
+            /*request.setAttribute("msg","请选择至少一件商品！");*/
+            return "redirect:/cart/showCart";
         }else {
             Orders orders = new Orders();
             OrderItem orderItem = new OrderItem();
@@ -103,27 +103,31 @@ public class OrderController {
         currOrder.setPhone(orderPhone);
         orderService.updateOrder(currOrder);
         // 付款:
-
-        //假设已付款
-
-        return "redirect:callBack";
-    }
-
-
-    @RequestMapping("/callback")
-    public String callBack(String r3_Amt,String r6_Order,Model model){
-        /***注意：r3_Amt和r6_Order在本项目中都为null,因为我们没有实现支付功能***/
-        //r3_Amt代表支付成功后，支付平台传过来的支付金额，r6_Order代表传过来的订单id,
+        //2代表已付款
+        currOrder.setState(2);
         //修改订单状态
-        //Order currOrder = orderService.findOrderByoid(Integer.parseInt(r6_Order));
-        //实际项目中订单编号发生修改,是因为没有查询出订单。
-        //currOrder.setState(2);//2代表已付款
-        //修改订单状态
-        //orderService.updateOrder(currOrder);
-        model.addAttribute("message", "订单付款成功!订单号:"+r6_Order+"支付金额:"+r3_Amt);
+        orderService.updateOrder(currOrder);
+        model.addAttribute("msg", "订单付款成功!订单号:"+oid+"支付金额:"+currOrder.getTotal());
         //返回消息页面
         return "loginPromot";
     }
+
+
+   /* @RequestMapping("/callback")
+    public String callBack(String r3_Amt,String r6_Order,Model model){
+        *//***r3_Amt和r6_Order在本项目中都为null,因为我们没有实现支付功能***//*
+        //r3_Amt代表支付成功后，支付平台传过来的支付金额，r6_Order代表传过来的订单id,
+        //修改订单状态
+        //Orders currOrder = orderService.findOrderByOid();
+        //实际项目中订单编号发生修改,是因为没有查询出订单。
+        //2代表已付款
+        //currOrder.setState(2);
+        //修改订单状态
+        //orderService.updateOrder(currOrder);
+        //model.addAttribute("msg", "订单付款成功!订单号:"+r6_Order+"支付金额:"+r3_Amt);
+        //返回消息页面
+        //return "loginPromot";
+    }*/
 
     /**
      * 我的订单

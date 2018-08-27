@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 
@@ -38,33 +40,57 @@ public class CategoryController {
     }
 
     /**
-     * 管理员添加商品页面，将一级目录和二级目录传过去
+     * 添加商品页面带一级目录
+     * @param model
      * @return
      */
     @RequestMapping("/getCategory")
-    public String addProduct(Model model, HttpServletRequest request){
-        //查询一级分类
+    public String getCategory(Model model){
         List<Category> categoryList = categoryService.findAllCategory();
-        //存放在model中
         model.addAttribute("categoryList",categoryList);
-        //点击的一级目录id
-        List<CategorySecond> categorySeconds = null;
-        int cid = Integer.parseInt(request.getParameter("categoryId"));
-        for (Category category:categoryList) {
-            if(category.getCid() == cid){
-                categorySeconds = category.getCategorySeconds();
-            }
-        }
-        //StringBuffer对象拼接字符串
-        StringBuffer sb = new StringBuffer();
-        String str = "";
-        for (CategorySecond categorySecond:categorySeconds) {
-            //通过逗号连接list集合中的数据
-            str = sb.append(categorySecond.getCsname()).append(",").toString();
-        }
-        //利用字符串函数substring，截取字符串，去掉末尾的逗号
-        str = str.substring(0,str.length()-1);
-        model.addAttribute("categorySecond",str);
         return "add_product";
+    }
+    /**
+     * 管理员添加商品页面，将一级目录和二级目录传过去
+     * @return
+     */
+    @RequestMapping("/getCategorySecond")
+    public void getCategorySecond(String cid, HttpServletResponse response){
+        try {
+            response.setContentType("text/html;charSet=utf-8");
+            response.resetBuffer();
+            PrintWriter writer = response.getWriter();
+            if(cid==null){
+                //前台未选择一级类目,则打印""
+                writer.print("");
+                return;
+            }
+            /*List<CategorySecond> categorySecondListByCid =
+            categorySecondService.getCategorySecondListByCid(Integer.valueOf(cid));*/
+            List<Category> categoryList = categoryService.findAllCategory();
+            List<CategorySecond> categorySecondList = null;
+            for (Category category:categoryList) {
+                if(category.getCid() == Integer.parseInt(cid)){
+                    categorySecondList = category.getCategorySeconds();
+                }
+            }
+            String str = "";
+            //以名称?id&名称?id的形式传回前台解析
+            for (int i = 0; i < categorySecondList.size() ; i++) {
+                if(i==0){
+                    str+=categorySecondList.get(i).getCsname();
+                    str+="?";
+                    str+=categorySecondList.get(i).getCsid();
+                }else{
+                    str+="&";
+                    str+=categorySecondList.get(i).getCsname();
+                    str+="?";
+                    str+=categorySecondList.get(i).getCsid();
+                }
+            }
+            writer.print(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

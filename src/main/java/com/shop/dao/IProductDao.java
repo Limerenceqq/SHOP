@@ -72,4 +72,16 @@ public interface IProductDao {
      */
     List<Product> findProducts(PageBean pageBean);
 
+    /**
+     * 管理员删除商品
+     * @param pid
+     */
+    int delProduct(int pid);
+
+    /**
+     * 添加商品
+     * @param product
+     */
+    void addProduct(Product product);
+
 }

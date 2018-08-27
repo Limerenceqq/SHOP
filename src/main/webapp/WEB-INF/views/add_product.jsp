@@ -10,47 +10,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ page isELIgnored="false" %>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>产品列表</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="${path}/style/adminStyle.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" language="JavaScript" src="js/xmlHttpRequest.js"></script>
-    <%--//ajax--%>
+    <script src="${path}/js/jquery-1.6.1.js"></script>
     <script type="text/javascript" language="JavaScript">
-        window.onload = function () {
-            var category = document.getElementById("category");
-            var categorySecond = document.getElementById("categorySecond");
-
-            category.onchange = function () {
-                var categoryId = category.value;
-                categorySecond.option.length = 0;
-                //清除原内容
-                if(category.value == 0){
-                    //添加option
-                    categorySecond.add(new Option('请选择二级目录','0'));
-                    return;
-                }
-                //创建xmlHttpRequest对象
-                var req = xmlHttpRequest()
-                //处理响应结果，设置回调函数
-                req.onstatechange = function () {
-                    if(req.status == 200 &amp;&amp; req.readyState == 4){
-                        var data = req.responseText;
-                        var categorySeconds = data.split(",");
-                        for(var i=0;i &lt; categorySeconds.length;i++){
-                            categorySecond.add(new Option(categorySeconds[i],categorySeconds[i]));
-                        }
+        function changed() {
+            $.ajax({
+                type:"get",
+                url:"${path}/category/getCategorySecond",
+                data:{
+                    cid:$("#cid").val()
+                },
+                dataType:"text",
+                success:function (data) {
+                    var str = data.split("&")
+                    $("#csid").empty();
+                    for(var i=0;i<str.length;i++){
+                        var strs = str[i].split("?");
+                        $("#csid").append("<option value='"+strs[1]+"'>"+strs[0]+"</option>");
                     }
                 }
-                //2.发送请求
-                req.open("get","${path}/home/getCategorySeconds?category="+categoryId);
-                //3.发送请求
-                req.send(null);
-
-            };
-        };
+            });
+        }
     </script>
 </head>
 <body>
@@ -68,14 +53,12 @@
             <tr>
                 <td style="text-align:right;">产品分类：</td>
                 <td>
-                    <select class="textBox" id="category" name="category">
-                        <option value="0">选择一级目录</option>
+                    <select class="textBox" id="cid" name="cid" onchange="changed()">
                         <c:forEach items="${categoryList}" var="category">
                             <option value="${category.cid}">${category.cname}</option>
                         </c:forEach>
                     </select>
-                    <select class="textBox" id="categorySecond" name="categorySecond">
-                        <option value="0">选择二级目录</option>
+                    <select class="textBox" id="csid" name="csid" style="width: 100px" >
                     </select>
                 </td>
             </tr>
@@ -93,13 +76,13 @@
                     <span>元</span>
                 </td>
             </tr>
-            <%--<tr>
-                <td style="text-align:right;">库存：</td>
+            <tr>
+                <td style="text-align:right;">日期：</td>
                 <td>
-                    <input type="text" class="textBox length-short"/>
-                    <span>盘</span>
+                    <input type="text" id="pdate" name="pdate" class="Wdate"
+                           onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" placeholder="生产日期..."/>
                 </td>
-            </tr>--%>
+            </tr>
             <%--<tr>
                 <td style="text-align:right;">产品关键词：</td>
                 <td><input type="text" class="textBox length-long"/></td>
@@ -111,10 +94,6 @@
             <tr>
                 <td style="text-align:right;">是否热门：</td>
                 <td>
-                    <%--<input type="checkbox" name="tuijian" id="jingpin"/>
-                    <label for="jingpin">精品</label>
-                    <input type="checkbox" name="tuijian" id="xinpin"/>
-                    <label for="xinpin">新品</label>--%>
                     <input type="checkbox" name="isHot" id="rexiao" />
                     <label for="rexiao">热门</label>
                 </td>
@@ -140,6 +119,8 @@
                     <input type="file" name="image" id="suoluetu" class="hide"/>
                     <label for="suoluetu" class="labelBtnAdd">+</label>
                     <input type="file" name="image" id="suoluetu1" class="hide"/>
+                    <label for="suoluetu" class="labelBtnAdd">+</label>
+                    <input type="file" name="image" id="suoluetu2" class="hide"/>
                     <label for="suoluetu" class="labelBtnAdd">+</label>
                     <%--<img src="#" width="60" height="60" class="mlr5"/>--%>
                 </td>

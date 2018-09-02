@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false"%>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE >
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
@@ -18,10 +18,18 @@
     <script type="text/javascript" src="${path}/js/jquery-2.2.3.min.js"></script>
     <link href="${path}/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/css/product.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        //校验数量格式
+        function checkCount() {
+            var count = $("#count").val();
+            $('#span1').html("");
+            if(count < 1 || count > 99999){
+                $("span1").html("<font color='red'>数量不对!</font>");
+            }
+        }
+    </script>
 </head>
 <body>
-<form action="${path}/cart/addCartItem" method="post">
-    <input type="hidden" name="pid" value="${product.pid }"/>
     <div class="container header">
         <div class="span5">
             <div class="logo">
@@ -38,6 +46,8 @@
         <%@ include file="header.jsp" %>
         <%@ include file="menu.jsp" %>
     </div>
+    <form action="${path}/cart/addCartItem" method="post">
+        <input type="hidden" name="pid" value="${product.pid }"/>
     <div class="container productContent">
         <div class="span6">
             <div class="hotProductCategory">
@@ -105,10 +115,13 @@
                 <dl class="quantity">
                     <dt>购买数量:</dt>
                     <dd>
-                        <input id="count" name="count" value="1" maxlength="4" onpaste="return false;" type="text"/>
+                        <input id="count" name="count" value="1" maxlength="4" onpaste="return false;" type="text" onblur="checkCount()"/>
                     </dd>
                     <dd>
                         件<span style="color: #d80000">${msg}</span>
+                    </dd>
+                    <dd>
+                        <span id="span1">${msg}</span>
                     </dd>
                 </dl>
                 <div class="buy">
@@ -133,6 +146,7 @@
             </div>
         </div>
     </div>
+</form>
     <div class="container footer">
         <div class="span24">
             <div class="footerAd">
@@ -182,6 +196,6 @@
             <div class="copyright">Copyright © 2018-2099 Amazon 版权所有</div>
         </div>
     </div>
-</form>
+
 </body>
 </html>

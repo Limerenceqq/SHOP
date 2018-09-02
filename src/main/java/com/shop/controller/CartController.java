@@ -70,26 +70,21 @@ public class CartController {
             return "loginPromot";
         }else {
             if(pid != null && count != null) {
-                if(Util.isNum(count)) {
-                    Product product = productService.findProductByPid(pid);
-                    CartItem cartItem = new CartItem();
-                    int count1 = Integer.parseInt(count);
-                    cartItem.setCount(count1);
-                    cartItem.setProduct(product);
-                    cartItem.setSubtotal(count1 * product.getShopPrice());
-                    //获取购物车
-                    Cart cart = (Cart) session.getAttribute("cart");
-                    if (cart == null) {
-                        cart = new Cart();
-                        session.setAttribute("cart", cart);
-                    }
-                    //添加商品到购物车
-                    cart.addCartItem(cartItem);
-                    return "redirect:/cart/showCart";
-                }else{
-                    model.addAttribute("msg","输入的数量有误!");
-                    return "product/findProductByPid";
+                Product product = productService.findProductByPid(pid);
+                CartItem cartItem = new CartItem();
+                int count1 = Integer.parseInt(count);
+                cartItem.setCount(count1);
+                cartItem.setProduct(product);
+                cartItem.setSubtotal(count1 * product.getShopPrice());
+                //获取购物车
+                Cart cart = (Cart) session.getAttribute("cart");
+                if (cart == null) {
+                    cart = new Cart();
+                    session.setAttribute("cart", cart);
                 }
+                //添加商品到购物车
+                cart.addCartItem(cartItem);
+                return "redirect:/cart/showCart";
             }else {
                 //
                 return "cart";

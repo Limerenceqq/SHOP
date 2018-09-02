@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -135,13 +136,13 @@ public class OrderServiceImpl implements IOrderService {
 
     /**
      * 根据用户id查找订单
-     * @param uid
+     * @param pageBean
      * @return
-     */
+     *//*
     @Override
-    public List<Orders> findOrderByUid(int uid) {
-        return orderDao.findOrderByUid(uid);
-    }
+    public List<Orders> findOrderByUid(PageBean pageBean) {
+        return orderDao.findOrderByUid(pageBean);
+    }*/
 
     /**
      * 根据订单id查找订单项
@@ -169,14 +170,22 @@ public class OrderServiceImpl implements IOrderService {
      * @return
      */
     @Override
-    public PageBean<Orders> findOrders(PageBean pageBean){
+    public PageBean<Orders> findOrders(PageBean<Orders> pageBean){
 
         //设置每页显示订单数
         int limit = 12;
         //总页数
         int totalPage = 0;
         //总订单数
-        int totalCount = orderDao.findOrdersCount();
+        int totalCount = 0;
+        int uid = pageBean.getUid();
+        if(uid != 0){
+            totalCount = orderDao.findMyOrdersCount(uid);
+            limit = 4;
+        }else{
+            totalCount = orderDao.findOrdersCount();
+            limit = 12;
+        }
         //封装总页数
         if(totalCount%limit == 0){
             totalPage = totalCount  / limit;
@@ -191,8 +200,8 @@ public class OrderServiceImpl implements IOrderService {
         pageBean.setTotalPage(totalPage);
 
         //订单数据集合
-        List<Orders> orders = orderDao.findOrders(pageBean);
-
+        List<Orders> orders = null;
+        orders = orderDao.findOrders(pageBean);
         pageBean.setList(orders);
         return pageBean;
     }

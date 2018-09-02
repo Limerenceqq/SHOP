@@ -18,7 +18,7 @@
 <c:if test="${sessionScope.cart.cartItems.size()==0}">
     <br/><br/><br/><br/>
     <div class="step step1">
-        <h2 align="center" style="color: #cc0000">您还没有购物!</h2><br/><br/>
+        <h2 align="center" style="color: #cc0000">您的购物车里还没有宝贝!</h2><br/><br/>
     </div>
     <a href="${path}/home/index"><h2 align="center" style="color: #cc0000">去购物！>>>></h2></a>
 </c:if>

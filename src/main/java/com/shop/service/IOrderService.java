@@ -65,10 +65,10 @@ public interface IOrderService {
 
     /**
      * 根据用户id查找订单
-     * @param uid
+     * @param pageBean
      * @return
-     */
-    List<Orders> findOrderByUid(int uid);
+     *//*
+    List<Orders> findOrderByUid(PageBean pageBean);*/
 
     /**
      * 根据订单id查找订单项信息
@@ -88,7 +88,7 @@ public interface IOrderService {
      * @param pageBean
      * @return
      */
-    PageBean<Orders> findOrders(PageBean pageBean);
+    PageBean<Orders> findOrders(PageBean<Orders> pageBean);
 
     /**
      * 删除订单

@@ -112,41 +112,31 @@ public class OrderController {
         return "loginPromot";
     }
 
-
-   /* @RequestMapping("/callback")
-    public String callBack(String r3_Amt,String r6_Order,Model model){
-        *//***r3_Amt和r6_Order在本项目中都为null,因为我们没有实现支付功能***//*
-        //r3_Amt代表支付成功后，支付平台传过来的支付金额，r6_Order代表传过来的订单id,
-        //修改订单状态
-        //Orders currOrder = orderService.findOrderByOid();
-        //实际项目中订单编号发生修改,是因为没有查询出订单。
-        //2代表已付款
-        //currOrder.setState(2);
-        //修改订单状态
-        //orderService.updateOrder(currOrder);
-        //model.addAttribute("msg", "订单付款成功!订单号:"+r6_Order+"支付金额:"+r3_Amt);
-        //返回消息页面
-        //return "loginPromot";
-    }*/
-
     /**
      * 我的订单
-     * @param session
+     * @param request
      * @param model
      * @return
      */
-    @RequestMapping("/myOrder")
-    public String myOrder(HttpSession session,Model model){
+    @RequestMapping("/findMyOrders")
+    public String myOrder(HttpServletRequest request,Model model,PageBean<Orders> pageBean,String state){
+        HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         if(user == null){
             model.addAttribute("msg","您还没有登陆，请先登录！");
             return "loginPromot";
         }else{
             int uid = user.getUid();
-            List<Orders> orders = orderService.findOrderByUid(uid);
-            model.addAttribute("orders",orders);
+            if(state == null || state.equals("")){
+                pageBean.setState(null);
+            }else {
+                pageBean.setState(Integer.parseInt(state));
+            }
+            pageBean.setUid(uid);
+            pageBean = orderService.findOrders(pageBean);
+            model.addAttribute("pageBean", pageBean);
             return "myOrder";
-        }
+            }
     }
 
 
@@ -165,7 +155,7 @@ public class OrderController {
 
 
     /**
-     * 订单分页
+     * 管理员订单分页
      * @param model
      * @return
      */
@@ -173,7 +163,6 @@ public class OrderController {
     public String findOrders(Model model,PageBean<Orders> pageBean){
 
         pageBean = orderService.findOrders(pageBean);
-        System.out.println("pageBean:Controller***************"+pageBean);
         model.addAttribute("pageBean",pageBean);
         return "order_list";
     }
@@ -181,7 +170,7 @@ public class OrderController {
 
 
     /**
-     * 订单详情
+     * 管理员订单详情
      * @param model
      * @param oid
      * @return

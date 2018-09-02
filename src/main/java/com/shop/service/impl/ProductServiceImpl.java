@@ -155,7 +155,7 @@ public class ProductServiceImpl implements IProductService {
         }else{
             totalPage = totalCount / limit + 1;
         }
-        //起始页数
+        //起始记录数
         int begin = (pageBean.getPageNow() - 1)*limit;
         //封装pageBean
         pageBean.setBegin(begin);

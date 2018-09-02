@@ -17,7 +17,7 @@
                 <li id="headerLogin" class="headerLogin" style="display: list-item;">
                 </li>
                 <li id="headerRegister" class="headerRegister" style="display: list-item;">
-                    <a href="${path}/order/myOrder.do">我的订单</a>|
+                    <a href="${path}/order/findMyOrders?pageNow=1">我的订单</a>|
                 </li>
                 <li id="headerLogin" class="headerLogin" style="display: list-item;">
                 </li>
@@ -52,7 +52,7 @@
         </ul>
     </div>
     <div class="cart">
-        <a  href="${path}/cart/showCart.do">购物车</a>
+        <a  href="${path}/cart/showCart">购物车</a>
     </div>
     <div class="phone">
         客服热线:

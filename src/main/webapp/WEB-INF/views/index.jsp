@@ -23,8 +23,8 @@
     <div class="container header">
         <div class="span5">
             <div class="logo">
-                <a href="${path}/home/index.do">
-                    <img src="${path}/image/logo.gif" alt="zmazon"/>
+                <a href="${path}/home/index">
+                    <img src="${path}/image/logo.gif" alt="amazon"/>
                 </a>
             </div>
         </div>

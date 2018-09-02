@@ -13,10 +13,10 @@
 <div class="span24">
     <ul class="mainNav">
         <li>
-            <a href="${path}/home/index.do">首页</a>
+            <a href="${path}/home/index">首页</a>
             |
         </li>
-        <c:forEach items="${sessionScope.categoryList}" var="category">
+        <c:forEach items="${categoryList}" var="category">
             <li>
                 <a href="${path}/product/findProductByCid?cid=${category.cid}&pageNow=1">${category.cname}</a>
                 |

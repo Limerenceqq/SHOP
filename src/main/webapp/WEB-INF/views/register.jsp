@@ -60,11 +60,11 @@
                 $("#span5").html("<font color='red'>邮箱不能为空</font>");
             }
         }
-        // 刷新图形验证码
+       /* // 刷新图形验证码
         function refreshCheckCode() {
             var timestamp = new Date().getTime();
             $("#checkCodeImg").attr("src", "${path}/user/checkCode/" + timestamp)
-        }
+        }*/
         //ajax验证用户名
         function checkUserName(){
             // ajax
@@ -110,9 +110,8 @@
                         <strong>会员注册</strong>USER REGISTER
 
                     </div>
-                    <form id="registerForm" action="${path}/user/register.do"
-                          method="post" novalidate="novalidate"
-                          onsubmit="return checkForm();">
+                    <form id="registerForm" action="${path}/user/registerCheck"
+                          method="post" novalidate="novalidate">
                         <table>
                             <tbody>
                             <tr>
@@ -185,8 +184,17 @@
                                     <span>${err}</span>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>&nbsp;
+                                </th>
+                                <td>
+                                    <input type="submit" class="submit" value="注 册"/>
+                                </td>
+                            </tr>
+
                             </tbody>
                         </table>
+                    </form>
                         <div class="login">
                             <dl>
                                 <dt>已经拥有账号了？</dt>
@@ -195,7 +203,6 @@
                                 </dd>
                             </dl>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

@@ -42,7 +42,7 @@ public class HomeController {
         //查询一级分类
         List<Category> categoryList = productService.findAllCategory();
         //将一级分类存放在session中
-        session.setAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList",categoryList);
         //查询所有热门商品
         hotList = productService.findAllHotProduct();
         //查询最新商品

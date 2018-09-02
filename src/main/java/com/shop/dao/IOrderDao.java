@@ -36,10 +36,10 @@ public interface IOrderDao {
 
     /**
      * 根据用户id查找订单
-     * @param uid
+     * @param pageBean
      * @return
      */
-    List<Orders> findOrderByUid(int uid);
+    List<Orders> findOrderByUid(PageBean pageBean);
 
     /**
      * 根据订单id查找订单项
@@ -62,11 +62,17 @@ public interface IOrderDao {
     List<Orders> findOrders(PageBean pageBean);
 
     /**
-     * 订单数
+     * 所有订单数
      * @return
      */
     int findOrdersCount();
 
+    /**
+     * 用户自己的订单数
+     * @param uid
+     * @return
+     */
+    int findMyOrdersCount(int uid);
 
     /**
      * 删除订单

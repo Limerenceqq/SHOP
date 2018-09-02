@@ -81,7 +81,7 @@
         select o.oid,o.total,o.ordertime,o.state,o.name,o.phone,o.addr,
                oi.count,oi.subtotal,
                p.image,p.pname,p.shop_price
-        from orders join orderitem oi join product p
+        from orders o join orderitem oi join product p
          on  o.oid = oi.oid and oi.pid = p.pid
         where o.uid = #{uid}
     </select>
@@ -104,33 +104,53 @@
             state = #{state}
     </update>
 
-    <!--条件查找订单-->
+    <!--查找订单-->
     <select id="findOrders" resultMap="orderAndUser" parameterType="PageBean">
-        select o.oid,o.ordertime,o.name,o.total,o.state
-        from orders o
+        select o.oid,o.total,o.ordertime,o.state,o.name,o.phone,o.addr,
+               oi.count,oi.subtotal,
+               p.image,p.pname,p.shop_price
+        from orders o join orderItem oi join product p
+        on   o.oid=oi.oid and oi.pid=p.pid
         <where>
-                <if test="oid != null and oid != ''">
-                    and o.oid=#{oid}
-                </if>
-                <if test="username != null and username != ''">
-                    and o.username=#{username}
-                </if>
-                <if test="startTime != null and startTime != ''">
-                    and o.orderTime > #{startTime}
-                </if>
-                <if test="endTime != null and endTime != ''">
-                    <![CDATA[and o.orderTime < #{endTime}]]>
-                </if>
-                <if test="state != null and state != ''">
-                    <if test="state != 0">
-                        and o.state == #{state}
-                    </if>
-                </if>
+            <if test="uid !=null and uid != ''" >
+                and o.uid = #{uid}
+            </if>
+            <if test="oid != null and oid != ''">
+                and o.oid=#{oid}
+            </if>
+            <if test="username != null and username != ''">
+                and o.name=#{username}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and o.ordertime > #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                <![CDATA[and o.ordertime < #{endTime}]]>
+            </if>
+            <if test="state != null and state != ''">
+                    and o.state = #{state}
+            </if>
         </where>
         limit #{begin},#{limit}
     </select>
 
-    <!--订单数-->
+    <!--用户查看自己订单-->
+    <select id="findMyOrders" parameterType="PageBean" resultMap="orderItme">
+        select o.oid,o.ordertime,o.state,o.total,
+               p.image,p.pname,p.pdesc,
+               oi.count,oi.subtotal
+        from orders o join product join orderitem oi
+        where o.uid = #{uid} and o.state = #{state}
+    </select>
+
+    <!--用户自己的订单数-->
+    <select id="findMyOrdersCount" parameterType="int" resultType="int">
+        select count(oid)
+        from orders
+        where orders.uid = #{uid}
+    </select>
+
+    <!--总订单数-->
     <select id="findOrdersCount" resultType="int">
         select count(*)
         from orders

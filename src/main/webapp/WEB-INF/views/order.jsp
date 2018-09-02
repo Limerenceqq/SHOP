@@ -93,7 +93,6 @@
                     收货人&nbsp;&nbsp;&nbsp;：<input name="name" type="text" value="${orders.user.username}"  style="width:150px" />
                     <br />
                     联系方式：<input name="orderPhone" type="text" value="${orders.user.phone }" style="width:150px" />
-
                 </p>
                 <br/>
                 <p>

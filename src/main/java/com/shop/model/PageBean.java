@@ -15,13 +15,17 @@ public class PageBean<T> {
      */
     private int oid;
     /**
+     * 所要查询订单的用户id
+     */
+    private int uid;
+    /**
      * 所要查询订单的收件人姓名
      */
     private String username;
     /**
      * 所要查询订单的状态
      */
-    private int state;
+    private Integer state;
     /**
      * 所要查询订单的开始时间
      */
@@ -145,11 +149,11 @@ public class PageBean<T> {
         this.username = username;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -177,11 +181,20 @@ public class PageBean<T> {
         this.productName = productName;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
     @Override
     public String toString() {
         return "PageBean{" +
                 "productName='" + productName + '\'' +
                 ", oid=" + oid +
+                ", uid=" + uid +
                 ", username='" + username + '\'' +
                 ", state=" + state +
                 ", startTime=" + startTime +

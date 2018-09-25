@@ -2,13 +2,12 @@ package com.shop.service.impl;
 
 import com.shop.dao.IOrderDao;
 import com.shop.dao.IProductDao;
-import com.shop.model.*;
+import com.shop.entity.*;
 import com.shop.service.IOrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.LinkedList;

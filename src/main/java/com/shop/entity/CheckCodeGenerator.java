@@ -1,4 +1,4 @@
-package com.shop.model;
+package com.shop.entity;
 
 import java.awt.Color;
 import java.awt.Font;

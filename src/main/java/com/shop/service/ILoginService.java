@@ -1,7 +1,7 @@
 package com.shop.service;
 
 
-import com.shop.model.User;
+import com.shop.entity.User;
 
 /**
 *@author asus11

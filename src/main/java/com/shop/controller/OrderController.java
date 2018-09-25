@@ -1,6 +1,6 @@
 package com.shop.controller;
 
-import com.shop.model.*;
+import com.shop.entity.*;
 import com.shop.service.IOrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

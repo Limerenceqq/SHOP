@@ -1,4 +1,4 @@
-package com.shop.model;
+package com.shop.entity;
 
 import java.util.Date;
 import java.util.List;

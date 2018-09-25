@@ -1,8 +1,8 @@
 package com.shop.dao;
 
-import com.shop.model.Orders;
-import com.shop.model.OrderItem;
-import com.shop.model.PageBean;
+import com.shop.entity.Orders;
+import com.shop.entity.OrderItem;
+import com.shop.entity.PageBean;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.shop.dao;
 
-import com.shop.model.Category;
-import com.shop.model.CategorySecond;
+import com.shop.entity.Category;
+import com.shop.entity.CategorySecond;
 
 import java.util.List;
 

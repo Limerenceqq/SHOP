@@ -1,7 +1,7 @@
 package com.shop.dao;
 
-import com.shop.model.PageBean;
-import com.shop.model.Product;
+import com.shop.entity.PageBean;
+import com.shop.entity.Product;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.shop.service;
 
-import com.shop.model.*;
+import com.shop.entity.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package com.shop.dao;
 
-import com.shop.model.User;
+import com.shop.entity.User;
 
 /**
 *@author asus11

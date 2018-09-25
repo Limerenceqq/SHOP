@@ -1,9 +1,7 @@
 package com.shop.service;
 
-import com.shop.model.Orders;
-import com.shop.model.PageBean;
-
-import javax.servlet.http.HttpServletRequest;
+import com.shop.entity.Orders;
+import com.shop.entity.PageBean;
 
 
 public interface IAdminService {

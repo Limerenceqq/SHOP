@@ -1,6 +1,6 @@
 package com.shop.controller;
 
-import com.shop.model.User;
+import com.shop.entity.User;
 import com.shop.service.ILoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

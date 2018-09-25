@@ -15,7 +15,7 @@
             <result column="phone" property="phone"/>
             <result column="addr" property="addr"/>
         </association>
-        <collection property="orderItems" ofType="com.shop.model.OrderItem">
+        <collection property="orderItems" ofType="com.shop.entity.OrderItem">
             <id column="itemid" property="orderItemId"/>
             <result column="count" property="count"/>
             <result column="subtotal" property="subtotal"/>
@@ -45,7 +45,7 @@
             <result column="pdate" property="pdate"/>
             <result column="is_hot" property="isHot"/>
         </association>
-        <association property="orders" javaType="com.shop.model.Orders">
+        <association property="orders" javaType="com.shop.entity.Orders">
             <id column="oid" property="oid"/>
         </association>
     </resultMap>

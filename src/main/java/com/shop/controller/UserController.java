@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.shop.model.User;
+import com.shop.entity.User;
 import com.shop.service.IUserService;
 
 import org.springframework.stereotype.Controller;

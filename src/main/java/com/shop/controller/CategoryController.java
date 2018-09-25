@@ -1,7 +1,7 @@
 package com.shop.controller;
 
-import com.shop.model.Category;
-import com.shop.model.CategorySecond;
+import com.shop.entity.Category;
+import com.shop.entity.CategorySecond;
 import com.shop.service.ICategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

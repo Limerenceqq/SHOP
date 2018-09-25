@@ -1,14 +1,13 @@
 package com.shop.controller;
 
-import com.shop.model.Category;
-import com.shop.model.Product;
+import com.shop.entity.Category;
+import com.shop.entity.Product;
 import com.shop.service.IProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 

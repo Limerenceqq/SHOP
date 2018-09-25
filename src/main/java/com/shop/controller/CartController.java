@@ -1,9 +1,8 @@
 package com.shop.controller;
 
-import com.shop.Util;
-import com.shop.model.Cart;
-import com.shop.model.CartItem;
-import com.shop.model.Product;
+import com.shop.entity.Cart;
+import com.shop.entity.CartItem;
+import com.shop.entity.Product;
 import com.shop.service.IProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

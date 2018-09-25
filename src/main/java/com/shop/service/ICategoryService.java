@@ -1,8 +1,7 @@
 package com.shop.service;
 
 
-import com.shop.model.Category;
-import com.shop.model.CategorySecond;
+import com.shop.entity.Category;
 
 import java.util.List;
 

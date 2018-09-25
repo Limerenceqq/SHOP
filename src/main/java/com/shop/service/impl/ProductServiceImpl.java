@@ -1,9 +1,9 @@
 package com.shop.service.impl;
 
 import com.shop.dao.IProductDao;
-import com.shop.model.Category;
-import com.shop.model.PageBean;
-import com.shop.model.Product;
+import com.shop.entity.Category;
+import com.shop.entity.PageBean;
+import com.shop.entity.Product;
 import com.shop.service.ICategoryService;
 import com.shop.service.IProductService;
 import org.springframework.stereotype.Service;

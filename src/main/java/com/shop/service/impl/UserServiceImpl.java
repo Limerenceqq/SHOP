@@ -1,8 +1,8 @@
 package com.shop.service.impl;
 
 import com.shop.dao.IUserDao;
-import com.shop.model.CheckCodeGenerator;
-import com.shop.model.User;
+import com.shop.entity.CheckCodeGenerator;
+import com.shop.entity.User;
 import com.shop.service.IUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

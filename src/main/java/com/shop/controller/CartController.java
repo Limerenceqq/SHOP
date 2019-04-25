@@ -36,10 +36,10 @@ public class CartController {
         String user = "user";
         HttpSession session = request.getSession();
         String msg = "请选择至少一件商品！";
-        if(session.getAttribute(user) == null){
+        /*if(session.getAttribute(user) == null){
             model.addAttribute("msg","您还没有登陆，请先去登录!");
             return "loginPromot";
-        }else {
+        }else {*/
             model.addAttribute("msg",msg);
             //从session中拿购物车，若没有则创建一个
             Cart cart = (Cart) session.getAttribute("cart");
@@ -48,7 +48,7 @@ public class CartController {
                 session.setAttribute("cart", cart);
             }
             return "cart";
-        }
+        /*}*/
     }
 
 
@@ -64,10 +64,10 @@ public class CartController {
     public String addCart(Model model,HttpSession session,Integer pid,String count){
         //判断用户是否登陆,没登陆则提示登陆
         String user = "user";
-        if(session.getAttribute(user) == null) {
+        /*if(session.getAttribute(user) == null) {
             model.addAttribute("msg","您还没有登陆，请先去登录!");
             return "loginPromot";
-        }else {
+        }else {*/
             if(pid != null && count != null) {
                 Product product = productService.findProductByPid(pid);
                 CartItem cartItem = new CartItem();
@@ -89,7 +89,7 @@ public class CartController {
                 return "cart";
             }
         }
-    }
+    /*}*/
 
     /**
      * 清空购物车

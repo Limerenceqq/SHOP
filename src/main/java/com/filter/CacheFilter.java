@@ -1,3 +1,4 @@
+/*
 package com.filter;
 
 import java.io.IOException;
@@ -26,4 +27,4 @@ public class CacheFilter implements javax.servlet.Filter {
     public void destroy() {
         this.filterConfig = null;
     }
-}
+}*/

@@ -1,6 +1,6 @@
 package com.shop.service.impl;
 
-import com.shop.dao.ILoignDao;
+import com.shop.dao.ILoginDao;
 import com.shop.entity.User;
 import com.shop.service.ILoginService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 public class LoginServiceImpl implements ILoginService {
 
     @Resource
-    private ILoignDao loginDao;
+    private ILoginDao loginDao;
 
     /**
      * 根据用户名和密码查询用户
